@@ -2,9 +2,21 @@
 //
 
 #include <iostream>
+#include"Stack.h"
+#include"Calculator.h"
+#include<string>
+using namespace std;
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	TCalculator c;
+	string exp;
+	cin >> exp;
+	c.SetExpr(exp);
+	c.ToPostfix();
+	cout << c.GetExpr() << endl;
+	cout << c.GetPostfix() << endl;
+	cout << c.calc();
+	return 0;
 }
 

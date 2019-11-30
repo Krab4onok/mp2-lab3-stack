@@ -8,7 +8,7 @@ class TStack
 	int num;
 public:
 	TStack(int _size = 10);          //конструктор инициализации и по умолчанию
-	~TStack() {delete [] arr};       //деструктор
+	~TStack() { delete[] arr; };       //деструктор
 	TStack(const TStack<T> &a);      //конструктор копирования 
 	TStack& operator=(const TStack &a);
 	bool IsEmpty() const;                  //проверка на пустоту
@@ -67,13 +67,13 @@ bool TStack<T>:: IsFull() const
 template <class T>
 T TStack<T> ::Pop()
 {
-	if (IsEmpty) throw - 2;
+	if (IsEmpty()) throw - 2;
 	return arr[num--];
 }
 template <class T>
 T TStack<T> ::Top() const
 {
-	if (IsEmpty) throw - 2;
+	if (IsEmpty()) throw - 2;
 	return arr[num];
 }
 template <class T>
