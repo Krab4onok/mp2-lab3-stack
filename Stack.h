@@ -17,12 +17,15 @@ public:
 	T Top() const;                         //посмотреть на вершину
 	void Clear();                    //очистить стек
 	void Push(const T& a);           //записать элемент в стек
+	int GetSize() { return size; }
+	int GetNum() { return num; }
 };
 
 
 template <class T>
 TStack<T>::TStack(int _size)
 {
+	if (_size <= 0) throw 1;
 	size = _size;
 	arr = new T[size];
 	num = -1;
@@ -41,16 +44,12 @@ TStack<T>::TStack(const TStack &a)
 template <class T>
 TStack<T>& TStack<T>::operator=(const TStack<T> &a)
 {
-	if ( *this != a)
+	size = a.size;
+	num = a.num;
+	arr = new T[size];
+	for (int i = 0; i < num; i++)
 	{
-		size = a.size;
-		num = a.num;
-		arr = new T[size];
-		for (int i = 0; i < num; i++)
-		{
-			arr[i] = a.arr[i];
-		}
-		return *this;
+		arr[i] = a.arr[i];
 	}
 	return *this;
 }

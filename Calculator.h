@@ -23,7 +23,7 @@ int TCalculator::prior(char c)
 	if(c =='(') return 0;
 	if (c == '+' || c == '-') return 1;
 	if (c == '*' || c == '/')return 2;
-	if (c == '^') return 2;
+	if (c == '^') return 3;
 }
 void TCalculator::SetExpr(string s)
 {
