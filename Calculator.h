@@ -17,6 +17,7 @@ public:
 	bool Check();                            //ïğîâåğèòü
 	void ToPostfix();                        //ïåğåâîä â ïîñòôèêñíóş ôîğìó çàïèñè
 	double calc();                           //ôóíêöèÿ, âû÷èñëÿşùàÿ âûğàæåíèå(1 âåğñèÿ)
+	double CalcV2();                         //ôóíêöèÿ, âû÷èñëÿşùàÿ âûğàæåíèå(îáúåäèí¸ííàÿ ñ ïîñòôèêñ)
 };
 int TCalculator::prior(char c)
 {
@@ -58,6 +59,10 @@ void TCalculator::ToPostfix()
 	{
 		if (str[i] == '(') st_char.Push(str[i]);
 		if (str[i] >= '0' && str[i] <= '9' || str[i] == '.' || str[i] == ',')postfix += str[i];
+		if (str[i] == '(' && str[i + 1] == '-')
+		{
+			postfix += '0';
+		}
 		if (str[i] == ')')
 		{
 			char tmp = st_char.Pop();
@@ -105,7 +110,7 @@ double TCalculator::calc()
 				res = op1 + op2;
 				break;
 			case  '-':
-				res = op1 - op2;
+				res = op2 - op1;
 					break;
 			case '*':
 				res = op1*op2;
@@ -126,5 +131,10 @@ double TCalculator::calc()
 }
 string TCalculator::GetPostfix()
 {
+	ToPostfix();
 	return postfix;
+}
+double TCalculator::CalcV2()
+{
+
 }
