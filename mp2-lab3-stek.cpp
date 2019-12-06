@@ -5,6 +5,7 @@
 #include"Stack.h"
 #include"Calculator.h"
 #include<string>
+#include<clocale>
 using namespace std;
 
 int main()
@@ -14,9 +15,10 @@ int main()
 	cin >> exp;
 	c.SetExpr(exp);
 	c.ToPostfix();
-	cout << c.GetExpr() << endl;
-	cout << c.GetPostfix() << endl;
-	cout << c.calc();
+	cout << c.GetExpr()<<" "<<" :Expretion"<< endl;
+	cout << c.GetPostfix() << " " << " :PostfixExpretion" << endl;
+	cout << c.calc()<<" " << " :Solution from calc()" << endl;
+	cout<< c.CalcV2()<< " " << " :Solution from CalcV2()" << endl;
 	return 0;
 }
 

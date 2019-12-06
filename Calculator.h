@@ -136,5 +136,76 @@ string TCalculator::GetPostfix()
 }
 double TCalculator::CalcV2()
 {
+	string str = "(";
+	str += expr;
+	str += ")";
+	st_char.Clear();
+	st_d.Clear();
+	char* tmp;
+	double res;
+	for (int i = 0; i < str.size(); i++)
+	{
 
+		if (str[i] == '(') st_char.Push(str[i]);
+		if (str[i] >= '0' && str[i] <= '9' || str[i] == '.' || str[i] == ',')
+		{
+			if ((str[i] >= '0' && str[i] <= '9') && (str[i + 1] == '.' || str[i + 1] == ','))
+			{
+				string dexpr;
+				dexpr = str[i];
+				dexpr += str[i + 1];
+				double d = strtod(&str[i], &tmp);
+				int j = tmp - &str[i];
+				i += j - 1;
+				st_d.Push(d);
+			}
+			else {
+				double d = strtod(&str[i], &tmp);
+				int j = tmp - &str[i];
+				i += j - 1;
+				st_d.Push(d);
+			}
+		}
+		if (str[i] == '+' || str[i] == '-' || str[i] == '/' || str[i] == '*' || str[i] == '^')
+		{
+			char tmp = st_char.Pop();
+			while (prior(str[i]) <= prior(tmp))
+			{
+				tmp = st_char.Pop();
+			}
+			st_char.Push(tmp);
+			st_char.Push(str[i]);
+		}
+		if (str[i] == ')')
+		{
+			char op = st_char.Pop();
+			if (op == '+' || op == '-' || op == '*' || op == '/' || op == '^')
+			{
+				double op1 = st_d.Pop();
+				double op2 = st_d.Pop();
+				switch(op)
+				{
+				case '+':
+					res = op1 + op2;
+					break;
+				case  '-':
+					res = op2 - op1;
+					break;
+				case '*':
+					res = op1 * op2;
+					break;
+				case '/':
+					res = op2 / op1;
+					break;
+				case '^':
+					res = pow(op2, op1);
+					break;
+				default:
+					if (st_char.IsEmpty()) throw - 1;
+				}
+				st_d.Push(res);
+			}
+		}
+	}
+	return st_d.Pop();
 }
