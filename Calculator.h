@@ -150,22 +150,17 @@ double TCalculator::CalcV2()
 		if (str[i] == '(') st_char.Push(str[i]);
 		if (str[i] >= '0' && str[i] <= '9' || str[i] == '.' || str[i] == ',')
 		{
-			if ((str[i] >= '0' && str[i] <= '9') && (str[i + 1] == '.' || str[i + 1] == ','))
-			{
-				string dexpr;
-				dexpr = str[i];
-				dexpr += str[i + 1];
 				double d = strtod(&str[i], &tmp);
 				int j = tmp - &str[i];
 				i += j - 1;
 				st_d.Push(d);
-			}
-			else {
-				double d = strtod(&str[i], &tmp);
-				int j = tmp - &str[i];
-				i += j - 1;
-				st_d.Push(d);
-			}
+		}
+		if (str[i] == '(' && str[i + 1] == '-')
+		{
+				double d = strtod(&str[i+2], &tmp);
+				int j = tmp - &str[i+2];
+				i += j + 1;
+				st_d.Push(-d);
 		}
 		if (str[i] == '+' || str[i] == '-' || str[i] == '/' || str[i] == '*' || str[i] == '^')
 		{
@@ -240,4 +235,5 @@ double TCalculator::CalcV2()
 		}
 	}
 	return st_d.Pop();
+	if (!(st_d.IsEmpty()))throw - 1;
 }
