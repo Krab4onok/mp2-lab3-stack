@@ -139,6 +139,7 @@ double TCalculator::CalcV2()
 	string str = "(";
 	str += expr;
 	str += ")";
+	cout << str << endl;
 	st_char.Clear();
 	st_d.Clear();
 	char* tmp;
@@ -171,7 +172,34 @@ double TCalculator::CalcV2()
 			char tmp = st_char.Pop();
 			while (prior(str[i]) <= prior(tmp))
 			{
+				char op = tmp;
 				tmp = st_char.Pop();
+				if (op == '+' || op == '-' || op == '*' || op == '/' || op == '^')
+				{
+					double op1 = st_d.Pop();
+					double op2 = st_d.Pop();
+					switch (op)
+					{
+					case '+':
+						res = op1 + op2;
+						break;
+					case  '-':
+						res = op2 - op1;
+						break;
+					case '*':
+						res = op1 * op2;
+						break;
+					case '/':
+						res = op2 / op1;
+						break;
+					case '^':
+						res = pow(op2, op1);
+						break;
+					default:
+						if (st_char.IsEmpty()) throw - 1;
+					}
+					st_d.Push(res);
+				}
 			}
 			st_char.Push(tmp);
 			st_char.Push(str[i]);
@@ -179,31 +207,35 @@ double TCalculator::CalcV2()
 		if (str[i] == ')')
 		{
 			char op = st_char.Pop();
-			if (op == '+' || op == '-' || op == '*' || op == '/' || op == '^')
+			while (op != '(')
 			{
-				double op1 = st_d.Pop();
-				double op2 = st_d.Pop();
-				switch(op)
+				if (op == '+' || op == '-' || op == '*' || op == '/' || op == '^')
 				{
-				case '+':
-					res = op1 + op2;
-					break;
-				case  '-':
-					res = op2 - op1;
-					break;
-				case '*':
-					res = op1 * op2;
-					break;
-				case '/':
-					res = op2 / op1;
-					break;
-				case '^':
-					res = pow(op2, op1);
-					break;
-				default:
-					if (st_char.IsEmpty()) throw - 1;
+					double op1 = st_d.Pop();
+					double op2 = st_d.Pop();
+					switch (op)
+					{
+					case '+':
+						res = op1 + op2;
+						break;
+					case  '-':
+						res = op2 - op1;
+						break;
+					case '*':
+						res = op1 * op2;
+						break;
+					case '/':
+						res = op2 / op1;
+						break;
+					case '^':
+						res = pow(op2, op1);
+						break;
+					default:
+						if (st_char.IsEmpty()) throw - 1;
+					}
+					st_d.Push(res);
 				}
-				st_d.Push(res);
+				op = st_char.Pop();
 			}
 		}
 	}
