@@ -139,7 +139,7 @@ double TCalculator::CalcV2()
 	string str = "(";
 	str += expr;
 	str += ")";
-	cout << str << endl;
+	
 	st_char.Clear();
 	st_d.Clear();
 	char* tmp;
@@ -157,10 +157,13 @@ double TCalculator::CalcV2()
 		}
 		if (str[i] == '(' && str[i + 1] == '-')
 		{
-				double d = strtod(&str[i+2], &tmp);
-				int j = tmp - &str[i+2];
-				i += j + 1;
-				st_d.Push(-d);
+			int j = i + 1;
+			str.insert(j, 1, '0');
+				/*double d = strtod(&str[i], &tmp);
+				int j = tmp - &str[i];
+				//i = i + 2;
+				i += j-1 ;
+				st_d.Push(-d);*/
 		}
 		if (str[i] == '+' || str[i] == '-' || str[i] == '/' || str[i] == '*' || str[i] == '^')
 		{
@@ -234,6 +237,6 @@ double TCalculator::CalcV2()
 			}
 		}
 	}
+	//if (!(st_d.IsEmpty()))throw - 1;
 	return st_d.Pop();
-	if (!(st_d.IsEmpty()))throw - 1;
-}
+}//((2+5)*9)/((-1)*9)
