@@ -1,5 +1,6 @@
 #include"gtest.h"
 #include"../Stack.h"
+using namespace ArrStack;
 
 
 TEST(TStack, can_create_stack)

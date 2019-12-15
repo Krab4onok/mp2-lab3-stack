@@ -7,6 +7,7 @@
 #include<string>
 #include<clocale>
 using namespace std;
+using namespace ArrStack;
 
 int main()
 {

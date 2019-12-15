@@ -3,6 +3,7 @@
 #include<cmath>
 #include<string>
 using namespace std;
+using namespace ArrStack;
 class TCalculator
 {
 	string expr, postfix;
