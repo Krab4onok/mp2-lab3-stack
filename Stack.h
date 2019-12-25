@@ -109,14 +109,52 @@ namespace ListStack
 		TNode<T>* pFirst;
 	public:
 		TStack() { pFirst = NULL; }
-		bool IsEmpty() { return *pFirst == NULL; }
+		TStack(const TStack<T>& a);
+		TStack& operator=(const TStack& a);
+		void Clear();
+		bool IsEmpty() { return pFirst == NULL; }
 		void Push(T a);
 		T Top();
 		T Pop();
 		~TStack();
 		bool IsFull();
-		int Count();
+		int GetNum();
 	};
+	template<class T>
+	TStack<T>::TStack(const TStack<T>& a)
+	{
+		TNode<T>* tmp = new TNode<T>;
+		tmp = a.pFirst;
+		while (tmp != 0)
+		{
+			pFirst = tmp;
+			tmp = tmp->pNext;
+		}
+
+	}
+	template<class T>
+	TStack<T>& TStack<T>:: operator=(const TStack& a)
+	{
+		TNode<T>* tmp = new TNode<T>;
+		tmp = a.pFirst;
+		while (tmp != 0)
+		{
+			pFirst = tmp;
+			tmp = tmp->pNext;
+		}
+		return *this;
+	}
+	template<class T>
+	void TStack<T>::Clear()
+	{
+		TNode <T>* tmp = pFirst;
+		while (pFirst != NULL)
+		{
+			pFirst = pFirst->pNext;
+			delete tmp;
+			tmp = pFirst;
+		}
+	}
 	template<class T>
 	void TStack<T>::Push(T a)
 	{
@@ -168,7 +206,7 @@ namespace ListStack
 		}
 	}
 	template<class T>
-	int TStack<T>::Count()
+	int TStack<T>::GetNum()
 	{
 		TNode<T>* p = pFirst;
 		int i = 0;
